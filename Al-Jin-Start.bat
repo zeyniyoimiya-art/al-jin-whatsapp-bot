@@ -25,6 +25,21 @@ set "NODE_OK="
 where node >nul 2>nul && node -e "process.exit(parseInt(process.versions.node)>=20?0:1)" >nul 2>nul && set "NODE_OK=1"
 if not defined NODE_OK call :get_node || (echo.& pause & exit /b 1)
 
+rem --- Auto-update: pull latest code + install deps on every start (Lin Yue Bot) ---
+if exist .git if exist start.js (
+  where git >nul 2>nul
+  if not errorlevel 1 (
+    echo [Al-Jin] Updating code (git pull)...
+    git pull --ff-only
+  ) else (
+    echo [Al-Jin] git not found in PATH - update skipped (use GitHub Desktop to fetch).
+  )
+)
+if exist package.json (
+  echo [Al-Jin] Checking dependencies (npm install)...
+  call npm install --no-audit --no-fund
+)
+
 if not exist index.js (
   echo [Al-Jin] Downloading the launcher...
   powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/zeyniyoimiya-art/al-jin-whatsapp-bot/main/index.js' -OutFile index.js" || (echo Download failed - check your internet. & pause & exit /b 1)

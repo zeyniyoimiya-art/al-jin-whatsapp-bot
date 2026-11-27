@@ -185,7 +185,7 @@ export async function stickerCommand(sock, chat, msg, args = []) {
         try {
           ({ sendSoundSticker } = await import('wa-sound-sticker'));
         } catch (imp) {
-          await reply('🔊 *Sound stickers* need extra packages that are not installed yet.\n\nRun `npm install` in the bot folder and restart — meanwhile, here is a normal sticker:');
+          await reply('🔊 *Sound stickers* need extra packages that are not installed yet.\n\nJust restart *Al-Jin-Start.bat* — it runs `npm install` automatically (or run it once by hand). Meanwhile, here is a normal sticker:');
           // continúa abajo → sticker normal
         }
       }

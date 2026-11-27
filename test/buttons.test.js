@@ -104,6 +104,16 @@ if (btnSock.relayCalls.length) {
   assert.strictEqual(btnSock.relayCalls[0].jid, JID);
   assert.ok(btnSock.relayCalls[0].options?.additionalNodes?.length > 0);
 }
+// 3d. "Message yourself" chat: WhatsApp silently drops interactive lists there,
+// so the answer must go out as plain text (sendMessage), never as a native list.
+setReplyMode('list');
+const selfSock = makeSock();
+selfSock.user = { id: '1234567890:12@s.whatsapp.net' };   // same number as JID
+await sendInteractive(selfSock, JID, payload);
+assert.strictEqual(selfSock.relayCalls.length, 0, 'self-chat must not relay a native list');
+assert.ok(selfSock.sendCalls.length >= 1, 'self-chat must answer in plain text');
+assert.ok(JSON.stringify(selfSock.sendCalls[0].content).includes('Hello world'));
+
 setReplyMode('text');
 
 console.log('✅ All lib/buttons.js tests passed successfully!');
