@@ -276,13 +276,20 @@ async function handleStartupTasks(rt, sock) {
     if (selfJid) {
       rt.startupSelfSent = true;
       await sock.sendMessage(selfJid, { text: ' 𝓛𝓲𝓷 𝓨𝓾𝓮 connected ✅\nFor help message owner ' });
-      const ownerNumber = '923257853673';
-      const vcard = [
-        'BEGIN:VCARD', 'VERSION:3.0', 'FN:Lin Yue OWNER',
-        `TEL;type=CELL;type=VOICE;waid=${ownerNumber}:+${ownerNumber}`,
-        'NOTE:Lin Yue OWNER', 'END:VCARD'
-      ].join('\n');
-      await sock.sendMessage(selfJid, { contacts: { displayName: 'Lin Yue OWNER', contacts: [{ vcard }] } });
+      // Owner REAL: owner.json (lo escribe rt.number al emparejar) → número vinculado.
+      // NUNCA el número del developer upstream.
+      let ownerNumber = '';
+      try { ownerNumber = String(getOwnerDetails().owner || '').replace(/\D/g, ''); } catch {}
+      if (!ownerNumber) ownerNumber = String(rt.number || '').replace(/\D/g, '');
+      if (!ownerNumber) ownerNumber = String(sock.user?.id || '').split(':')[0].split('@')[0].replace(/\D/g, '');
+      if (ownerNumber) {
+        const vcard = [
+          'BEGIN:VCARD', 'VERSION:3.0', 'FN:Lin Yue OWNER',
+          `TEL;type=CELL;type=VOICE;waid=${ownerNumber}:+${ownerNumber}`,
+          'NOTE:Lin Yue OWNER', 'END:VCARD'
+        ].join('\n');
+        await sock.sendMessage(selfJid, { contacts: { displayName: 'Lin Yue OWNER', contacts: [{ vcard }] } });
+      }
     }
   } catch (e) { console.error('[startupTasks]', e.message); }
 }

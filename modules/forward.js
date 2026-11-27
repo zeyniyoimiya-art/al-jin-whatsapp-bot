@@ -31,7 +31,7 @@ export async function forwardCommand(sock, chat, msg, args) {
   const fullArgs = (args || []).join(' ').trim();
 
   if (!fullArgs) {
-    return sendWithCta(sock, chat, `⏩ *Forward Command*\n\nUsage:\n• \`.forward <JID or Phone>\` (while quoting a message)\n• \`.forward <custom text> <JID or Phone>\`\n\nExamples:\n• \`.forward 923257853673\`\n• \`.forward Hello 923257853673@s.whatsapp.net\``, { quoted: msg });
+    return sendWithCta(sock, chat, `⏩ *Forward Command*\n\nUsage:\n• \`.forward <JID or Phone>\` (while quoting a message)\n• \`.forward <custom text> <JID or Phone>\`\n\nExamples:\n• \`.forward 59170000000\`\n• \`.forward Hello 59170000000@s.whatsapp.net\``, { quoted: msg });
   }
 
   // Parse arguments: target JID/Phone is usually the last token
