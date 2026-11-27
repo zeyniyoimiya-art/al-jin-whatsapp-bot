@@ -84,14 +84,15 @@ const payload = {
   buttons: [createQuickReply('Ping', '.ping'), createLocationRequest('Share Location')],
 };
 
-// 3a. Default reply mode is plain text (buttons are opt-in): one text message, no relay.
-assert.strictEqual(getReplyMode(), 'text');
-const textSock = makeSock();
-await sendInteractive(textSock, JID, payload);
-assert.strictEqual(textSock.relayCalls.length, 0);
-assert.strictEqual(textSock.sendCalls.length, 1);
-assert.strictEqual(textSock.sendCalls[0].jid, JID);
-assert.ok(textSock.sendCalls[0].content.text.includes('Hello world'));
+// 3a. Default reply mode is now "list" (a Select-option list menu): one interactive
+// message goes out through the socket's relay, nothing is sent as plain text.
+assert.strictEqual(getReplyMode(), 'list');
+const listSock = makeSock();
+await sendInteractive(listSock, JID, payload);
+assert.strictEqual(listSock.sendCalls.length, 0);
+assert.strictEqual(listSock.relayCalls.length, 1);
+assert.strictEqual(listSock.relayCalls[0].jid, JID);
+assert.ok(JSON.stringify(listSock.relayCalls[0].msg).includes('Hello world'));
 
 // 3b. Buttons mode: the message must actually go out through the socket.
 setReplyMode('buttons');

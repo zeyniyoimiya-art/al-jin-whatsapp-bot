@@ -8,7 +8,7 @@
 #  - Later runs: resumes the saved session. Restarts the bot if it stops. Ctrl+C to quit.
 # ─────────────────────────────────────────────
 cd "$(dirname "$0")" || exit 1
-RAW="https://raw.githubusercontent.com/themalik-g/al-jin-whatsapp-bot/main/index.js"
+RAW="https://raw.githubusercontent.com/zeyniyoimiya-art/al-jin-whatsapp-bot/main/index.js"
 # Session ID from the Jin pairing site (leave empty to link with your number instead)
 ALJIN_SESSION_ID=""
 ALJIN_SESSION_API=""

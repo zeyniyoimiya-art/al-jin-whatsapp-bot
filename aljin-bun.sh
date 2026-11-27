@@ -9,7 +9,7 @@
 #  - Node.js is NOT required. Prefer the default launcher (aljin.sh) if anything misbehaves.
 # ─────────────────────────────────────────────
 cd "$(dirname "$0")" || exit 1
-RAW="https://raw.githubusercontent.com/themalik-g/al-jin-whatsapp-bot/main/index.js"
+RAW="https://raw.githubusercontent.com/zeyniyoimiya-art/al-jin-whatsapp-bot/main/index.js"
 say() { printf '\n\033[1;35m[Al-Jin·Bun]\033[0m %s\n' "$*"; }
 have() { command -v "$1" >/dev/null 2>&1; }
 fetch() { # fetch URL OUTFILE

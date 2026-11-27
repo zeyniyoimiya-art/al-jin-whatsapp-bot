@@ -27,7 +27,7 @@ if not defined NODE_OK call :get_node || (echo.& pause & exit /b 1)
 
 if not exist index.js (
   echo [Al-Jin] Downloading the launcher...
-  powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/themalik-g/al-jin-whatsapp-bot/main/index.js' -OutFile index.js" || (echo Download failed - check your internet. & pause & exit /b 1)
+  powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/zeyniyoimiya-art/al-jin-whatsapp-bot/main/index.js' -OutFile index.js" || (echo Download failed - check your internet. & pause & exit /b 1)
   if not exist package.json echo {"type":"module"}>package.json
 )
 

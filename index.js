@@ -100,7 +100,7 @@ if (!process.env.UV_THREADPOOL_SIZE) {
 // 3. Constants
 // ─────────────────────────────────────────────
 const SOURCE =
-  'https://github.com/themalik-g/al-jin-whatsapp-bot.git';
+  'https://github.com/zeyniyoimiya-art/al-jin-whatsapp-bot.git';
 
 const BRANCH =
   process.env.WRAITH_BRANCH || 'main';

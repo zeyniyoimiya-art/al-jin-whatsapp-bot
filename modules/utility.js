@@ -318,7 +318,7 @@ export async function ownerCommand(sock, chat, msg, args) {
 // ── .script / .repo ─────────────────────────────────────────────────────────
 export async function scriptCommand(sock, chat, msg) {
   try {
-    const url = CONFIG.repoUrl || 'https://github.com/themalik-g/al-jin-whatsapp-bot';
+    const url = CONFIG.repoUrl || 'https://github.com/zeyniyoimiya-art/al-jin-whatsapp-bot';
     await sendInteractive(
       sock,
       chat,

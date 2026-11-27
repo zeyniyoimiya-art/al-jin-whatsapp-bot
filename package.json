@@ -22,13 +22,13 @@
     "pairing-code",
     "group-management"
   ],
-  "homepage": "https://github.com/themalik-g/al-jin-whatsapp-bot#readme",
+  "homepage": "https://github.com/zeyniyoimiya-art/al-jin-whatsapp-bot#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/themalik-g/al-jin-whatsapp-bot.git"
+    "url": "git+https://github.com/zeyniyoimiya-art/al-jin-whatsapp-bot.git"
   },
   "bugs": {
-    "url": "https://github.com/themalik-g/al-jin-whatsapp-bot/issues"
+    "url": "https://github.com/zeyniyoimiya-art/al-jin-whatsapp-bot/issues"
   },
   "author": "Malik Mehtab (https://github.com/themalik-g)",
   "license": "MIT",
