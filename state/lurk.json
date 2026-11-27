@@ -1,6 +1,7 @@
 {
-  "on": true,
-  "react": true,
+  "on": false,
+  "react": false,
   "emoji": "❤️",
-  "download": true
+  "download": true,
+  "v": 2
 }
