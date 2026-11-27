@@ -65,6 +65,7 @@
     "pino": "^9.0.0",
     "pptxgenjs": "^3.12.0",
     "tesseract.js": "^7.0.0",
+    "wa-sound-sticker": "github:alkhrzmy/wa-sound-sticker",
     "ytdlp-nodejs": "^3.4.5"
   },
   "allowScripts": {

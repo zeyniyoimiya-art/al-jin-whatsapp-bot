@@ -14,7 +14,8 @@ import { spawn } from 'node:child_process';
 import { pipeline } from 'node:stream/promises';
 import PQueue from 'p-queue';
 import { downloadContentFromMessage } from '@whiskeysockets/baileys';
-import { ffmpegPath } from '../lib/ffmpeg-resolver.js';
+import { ffmpegPath, ffprobePath } from '../lib/ffmpeg-resolver.js';
+import { sendSoundSticker } from 'wa-sound-sticker';
 import { getTmpDir, cleanFile } from '../lib/ytdlp.js';
 import { inspectWebp, webpToMp4, webpToJpg } from '../lib/webp-anim.js';
 
@@ -140,6 +141,14 @@ async function encodeSticker(inputPath, outputPath, { animated, crop }) {
   throw fail('animated sticker still too large', 'the animation is too large for a sticker — try a shorter clip');
 }
 
+// wa-sound-sticker invoca "ffmpeg"/"ffprobe" por nombre — apuntamos el PATH
+// a los binarios que el bot ya trae (ffmpeg-static / ffprobe-static).
+function ensureFfmpegOnPath() {
+  const dirs = [path.dirname(ffmpegPath), path.dirname(ffprobePath)].filter((d) => d && fs.existsSync(d));
+  const parts = String(process.env.PATH || '').split(path.delimiter).filter(Boolean);
+  process.env.PATH = [...new Set([...dirs, ...parts])].join(path.delimiter);
+}
+
 export async function stickerCommand(sock, chat, msg, args = []) {
   const reply = (text) => sock.sendMessage(chat, { text }, { quoted: msg }).catch(() => {});
   const files = [];
@@ -149,13 +158,18 @@ export async function stickerCommand(sock, chat, msg, args = []) {
     const media = classify(quoted) || classify(m);
 
     if (!media) {
-      return await reply('🎨 *sticker*\n\nSend or reply to an image, video or GIF with `.sticker` (or `.s`).\nAdd `crop` to fill the whole square: `.sticker crop`');
+      return await reply('🎨 *sticker*\n\nSend or reply to an image, video or GIF with `.sticker` (or `.s`).\nAdd `crop` to fill the whole square: `.sticker crop`\n🔊 Reply to a VIDEO with `.sticker sound` → native sound sticker (animated + audio, max 5 s).');
     }
     const declared = Number(media.node.fileLength || 0);
     if (declared > MAX_INPUT_BYTES) {
       return await reply('⚠️ That file is too large for a sticker (max 25 MB).');
     }
     const crop = args.some((a) => /^(crop|fill|full)$/i.test(a));
+    const sound = args.some((a) => /^(sound|audio|snd|sonido)$/i.test(a));
+
+    if (sound && media.kind !== 'video') {
+      return await reply('🔊 *sound sticker*\n\nReply to a VIDEO with `.sticker sound` (or `.s sound`).\nWhatsApp keeps up to **5 seconds** of the video audio.');
+    }
 
     await queue.add(async () => {
       const id = uid();
@@ -164,6 +178,28 @@ export async function stickerCommand(sock, chat, msg, args = []) {
       files.push(inputPath, outputPath);
 
       await downloadToFile(media.node, media.kind, inputPath);
+
+      if (sound) {
+        try {
+          ensureFfmpegOnPath();
+          await sendSoundSticker(sock, chat, {
+            filePath: inputPath,
+            useVideoAudio: true,
+            fit: 'cover',
+            maxDurationSec: 5,   // límite de WhatsApp: video → sound sticker conserva 5 s de audio
+            packName: 'Lin Yue Bot',
+            publisher: 'Lin Yue Bot',
+            emojis: ['🔊'],
+            quoted: msg,
+          });
+          return;
+        } catch (e) {
+          console.error('[sticker:sound]', e?.message || e);
+          await reply(`⚠️ Sound sticker failed (${e?.message || 'no audio'}); sending a normal sticker instead.`);
+          // fallback: continúa con el sticker normal de abajo
+        }
+      }
+
       await encodeSticker(inputPath, outputPath, { animated: media.animated, crop });
 
       await sock.sendMessage(chat, {
