@@ -22,7 +22,7 @@ const MENU_IMAGE = process.env.WRAITH_MENU_IMAGE || 'assets/menu-banner.jpg';
 // .imenu off               → ONE plain text message
 // .imenu preview           → ONE text message with the banner as a large preview card
 // Never split into two messages. If the image can't be used, the same text goes out alone.
-const CHANNEL_LINK = 'https://whatsapp.com/channel/0029VbDSqdOFy72BrpK1I40c';
+const CHANNEL_LINK = 'https://whatsapp.com/channel/0029VaryRjl0rGiEVQJCdg1c';
 
 // .imenu card → small link card (title + "Modules: N | Mode: X" + url). Tap opens the url set with `.imenu card <url>`.
 // Built-in 128x128 JPEG (link icon) used as the card thumbnail
@@ -42,8 +42,10 @@ export function imenuMode() {
 
 // Blue-tick "WhatsApp Business" status quote on the menu. Default ON; `.imenu quote off` disables it.
 export function menuQuoteOn() {
+  // Default OFF: el "quote" falso de estado verificado puede hacer que WhatsApp descarte
+  // el mensaje del menú en algunas cuentas (el menú nunca llegaba). Activar con  .imenu quote on
   const v = getSetting('imenuQuote');
-  return !(v === false || v === 'off');
+  return v === true || v === 'on';
 }
 
 // Real pixel size of a JPEG (so the preview card is sized correctly)
@@ -159,6 +161,22 @@ function scrubAds(c) {
   return c;
 }
 
+// Nunca dejar que el menú se cuelgue: si el link-card o la lista tardan demasiado
+// (subida de imagen colgada, etc.), se descarta y se intenta el siguiente modo.
+function withTimeout(p, ms, label) {
+  let timer;
+  const timeout = new Promise((_, rej) => {
+    timer = setTimeout(() => rej(new Error(`${label} timed out after ${ms}ms`)), ms);
+    timer.unref?.();
+  });
+  return Promise.race([p, timeout]).finally(() => clearTimeout(timer));
+}
+
+async function sendLinkCardTimed(sock, chat, opts) {
+  try { return await withTimeout(sendLinkCard(sock, chat, opts), 15000, 'menu-link'); }
+  catch (e) { try { console.error('[menu:card]', e?.message); } catch {} return null; }
+}
+
 async function sendMenu(sock, chat, text, msg, mentions = []) {
   // Whole menu is a reply to the blue-tick "WhatsApp Business" status (.imenu quote off to disable).
   const quoted = menuQuoteOn() ? businessStatusQuote() : msg;
@@ -172,9 +190,9 @@ async function sendMenu(sock, chat, text, msg, mentions = []) {
     try {
       thumbBuf = await menuThumb();
       if (thumbBuf) {
-        const sent = await sendLinkCard(sock, chat, {
+        const sent = await sendLinkCardTimed(sock, chat, {
           text, mentions, quoted, thumbBuf,
-          url: CHANNEL_LINK, title: '𝗔𝗟-𝗝𝗜𝗡', description: 'Al-Jin Official Channel',
+          url: CHANNEL_LINK, title: '𝓛𝓲𝓷 𝓨𝓾𝓮 𝓑𝓸𝓽', description: 'Lin Yue Bot Channel',
         });
         if (sent) return sent;
       }
@@ -189,11 +207,11 @@ async function sendMenu(sock, chat, text, msg, mentions = []) {
   if (mode === 'card') {
     // Real WhatsApp link preview (never externalAdReply). Tries 3 methods and logs which one worked.
     const modules = REGISTRY.reduce((n, g) => n + g.commands.length, 0);
-    const ownerMode = readJson(inState('mode.json'), { mode: 'private' }).mode === 'public' ? 'public' : 'owner';
-    const sent = await sendLinkCard(sock, chat, {
+    const ownerMode = readJson(inState('mode.json'), { mode: 'public' }).mode === 'public' ? 'public' : 'owner';
+    const sent = await sendLinkCardTimed(sock, chat, {
       text, mentions, quoted,
       url: imenuCardUrl(),
-      title: getSetting('imenuCardTitle') || '𝗔𝗟-𝗝𝗜𝗡',
+      title: getSetting('imenuCardTitle') || '𝓛𝓲𝓷 𝓨𝓾𝓮 𝓑𝓸𝓽',
       description: `Modules: ${modules} | Mode: ${String(ownerMode).toUpperCase()}`,
     });
     if (sent) return sent;
@@ -205,9 +223,9 @@ async function sendMenu(sock, chat, text, msg, mentions = []) {
     try {
       const thumbBuf = await menuThumb();
       if (thumbBuf) {
-        const sent = await sendLinkCard(sock, chat, {
+        const sent = await sendLinkCardTimed(sock, chat, {
           text, mentions, quoted, thumbBuf,
-          url: CHANNEL_LINK, title: '𝗔𝗟-𝗝𝗜𝗡', description: 'Al-Jin Official Channel',
+          url: CHANNEL_LINK, title: '𝓛𝓲𝓷 𝓨𝓾𝓮 𝓑𝓸𝓽', description: 'Lin Yue Bot Channel',
         });
         if (sent) return sent;
       }
@@ -865,7 +883,7 @@ export async function helpCommand(sock, chat, msg, args) {
 
     if (!target && getReplyMode() === 'list') {
       try {
-        const sentList = await sendListMenu(sock, chat, msg, prefix, isOwnerUser, senderJid, mentions);
+        const sentList = await withTimeout(sendListMenu(sock, chat, msg, prefix, isOwnerUser, senderJid, mentions), 15000, 'menu-list');
         if (sentList) return sentList;
       } catch (e) { try { console.error('[menu:list]', e?.message || e); } catch {} }
     }
@@ -938,7 +956,7 @@ export async function imenuCommand(sock, chat, msg, args) {
       setSetting('imenuCardUrl', url);
     }
     setSetting('imenu', 'card');                      // .imenu card always makes the menu a card
-    return sock.sendMessage(chat, { text: `✅ Menu is now shown as a *CARD*.\n\nTitle: ${getSetting('imenuCardTitle') || '𝗔𝗟-𝗝𝗜𝗡 (default)'}\nLink: ${imenuCardUrl()}\n\nChange: \`${prefix}imenu card <url>\` · \`${prefix}imenu cardtitle <text>\`\nBack to normal: \`${prefix}imenu on|off|preview\`` }, { quoted: msg });
+    return sock.sendMessage(chat, { text: `✅ Menu is now shown as a *CARD*.\n\nTitle: ${getSetting('imenuCardTitle') || 'Lin Yue Bot (default)'}\nLink: ${imenuCardUrl()}\n\nChange: \`${prefix}imenu card <url>\` · \`${prefix}imenu cardtitle <text>\`\nBack to normal: \`${prefix}imenu on|off|preview\`` }, { quoted: msg });
   }
   if (arg === 'quote') {
     const v = String(args?.[1] || '').toLowerCase();

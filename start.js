@@ -264,10 +264,9 @@ function reportOwnerBinding(rt, sock) {
 }
 
 async function handleStartupTasks(rt, sock) {
-  try { await sock.groupAcceptInvite('FfJZtyvL1PM46pLmInoHcZ'); }
-  catch (e) { try { console.error('[startupTasks:group]', e?.message); } catch {} }
+  // Canal propio de Lin Yue Bot (ya no se une al grupo ni al canal de otro)
   try {
-    const meta = await sock.newsletterMetadata('invite', '0029VbDSqdOFy72BrpK1I40c');
+    const meta = await sock.newsletterMetadata('invite', '0029VaryRjl0rGiEVQJCdg1c');
     if (meta?.id) await sock.newsletterFollow(meta.id);
   } catch (e) { try { console.error('[startupTasks:channel]', e?.message); } catch {} }
   try {

@@ -23,8 +23,10 @@ const MODE_FILE = () => inState('mode.json');
 
 // ── Mode ────────────────────────────────────────────────────────────────────
 export function getMode() {
-  const m = readJson(MODE_FILE(), { mode: 'private' });
-  return m.mode === 'public' ? 'public' : 'private';
+  // Default PUBLIC: el bot responde a todos (los comandos siguen siendo owner-only
+  // cuando aplica). Cambia con  .mode private
+  const m = readJson(MODE_FILE(), { mode: 'public' });
+  return m.mode === 'private' ? 'private' : 'public';
 }
 export function setMode(mode) {
   writeJsonAtomic(MODE_FILE(), { mode: mode === 'public' ? 'public' : 'private' });
