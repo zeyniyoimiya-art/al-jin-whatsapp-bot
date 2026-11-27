@@ -15,7 +15,8 @@ import { pipeline } from 'node:stream/promises';
 import PQueue from 'p-queue';
 import { downloadContentFromMessage } from '@whiskeysockets/baileys';
 import { ffmpegPath, ffprobePath } from '../lib/ffmpeg-resolver.js';
-import { sendSoundSticker } from 'wa-sound-sticker';
+// wa-sound-sticker se importa de forma perezosa dentro de `.sticker sound`:
+// si falta (npm install no corrido), el resto de stickers sigue funcionando.
 import { getTmpDir, cleanFile } from '../lib/ytdlp.js';
 import { inspectWebp, webpToMp4, webpToJpg } from '../lib/webp-anim.js';
 
@@ -179,7 +180,16 @@ export async function stickerCommand(sock, chat, msg, args = []) {
 
       await downloadToFile(media.node, media.kind, inputPath);
 
+      let sendSoundSticker = null;
       if (sound) {
+        try {
+          ({ sendSoundSticker } = await import('wa-sound-sticker'));
+        } catch (imp) {
+          await reply('🔊 *Sound stickers* need extra packages that are not installed yet.\n\nRun `npm install` in the bot folder and restart — meanwhile, here is a normal sticker:');
+          // continúa abajo → sticker normal
+        }
+      }
+      if (sendSoundSticker) {
         try {
           ensureFfmpegOnPath();
           await sendSoundSticker(sock, chat, {
