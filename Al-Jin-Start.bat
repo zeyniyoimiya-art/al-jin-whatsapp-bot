@@ -25,20 +25,17 @@ set "NODE_OK="
 where node >nul 2>nul && node -e "process.exit(parseInt(process.versions.node)>=20?0:1)" >nul 2>nul && set "NODE_OK=1"
 if not defined NODE_OK call :get_node || (echo.& pause & exit /b 1)
 
-rem --- Auto-update: pull latest code + install deps on every start (Lin Yue Bot) ---
-if exist .git if exist start.js (
-  where git >nul 2>nul
-  if not errorlevel 1 (
-    echo [Al-Jin] Updating code (git pull)...
-    git pull --ff-only
-  ) else (
-    echo [Al-Jin] git not found in PATH - update skipped (use GitHub Desktop to fetch).
-  )
+rem --- Auto-update: latest code and dependencies on every start ---
+rem Single canonical block: fully pre-parsed before git pull runs, so a pull
+rem that updates this very file cannot corrupt cmd - it re-reads a running
+rem .bat by offset; the goto inside forces a fresh re-scan. No parens in echos.
+if exist .git (
+  where git >nul 2>nul && echo [Al-Jin] Updating code via git pull... && git pull --ff-only
+  goto :linyue_boot
 )
-if exist package.json (
-  echo [Al-Jin] Checking dependencies (npm install)...
-  call npm install --no-audit --no-fund
-)
+:linyue_boot
+if exist package.json echo [Al-Jin] Checking dependencies via npm install...
+if exist package.json call npm install --no-audit --no-fund
 
 if not exist index.js (
   echo [Al-Jin] Downloading the launcher...
