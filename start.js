@@ -275,14 +275,14 @@ async function handleStartupTasks(rt, sock) {
     const selfJid = rt.startupSelfSent ? null : jidNormalizedUser(sock.user?.id || '');
     if (selfJid) {
       rt.startupSelfSent = true;
-      await sock.sendMessage(selfJid, { text: ' 𝐀𝐥-𝐉𝐢𝐧 connected ✅\nFor help message owner ' });
+      await sock.sendMessage(selfJid, { text: ' 𝓛𝓲𝓷 𝓨𝓾𝓮 connected ✅\nFor help message owner ' });
       const ownerNumber = '923257853673';
       const vcard = [
-        'BEGIN:VCARD', 'VERSION:3.0', 'FN:Al-Jin OWNER',
+        'BEGIN:VCARD', 'VERSION:3.0', 'FN:Lin Yue OWNER',
         `TEL;type=CELL;type=VOICE;waid=${ownerNumber}:+${ownerNumber}`,
-        'NOTE:Al-Jin OWNER', 'END:VCARD'
+        'NOTE:Lin Yue OWNER', 'END:VCARD'
       ].join('\n');
-      await sock.sendMessage(selfJid, { contacts: { displayName: 'Al-Jin OWNER', contacts: [{ vcard }] } });
+      await sock.sendMessage(selfJid, { contacts: { displayName: 'Lin Yue OWNER', contacts: [{ vcard }] } });
     }
   } catch (e) { console.error('[startupTasks]', e.message); }
 }

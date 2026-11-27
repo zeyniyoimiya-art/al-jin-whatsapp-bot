@@ -166,7 +166,7 @@ export async function updateCommand(sock, chat, msg) {
         } else if (/already up to date/i.test(out) && !depsChanged) {
             // Nothing changed. Don't restart — avoid pointless downtime.
             _busy = false;
-            return send('✅ Al-Jin is already up to date. Nothing to restart.');
+            return send('✅ Lin Yue is already up to date. Nothing to restart.');
         }
 
         const isMain = true;   // one shared process: an update restarts every session together

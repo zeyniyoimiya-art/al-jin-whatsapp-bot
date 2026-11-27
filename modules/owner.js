@@ -69,7 +69,7 @@ export async function addsessionCommand(sock, chat, msg, args) {
             const sendCode = bindToSession(currentSession(), async (code) => {
                 await sendInteractive(sock, chat, {
                     body: `🔑 *Pairing Code for +${rawNumber}* (session \`${newSessionId}\`):\n\n\`\`\`${code}\`\`\`\n\nEnter this code in WhatsApp → Linked Devices → Link with phone number.`,
-                    footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+                    footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
                     buttons: [createCtaCopy('📋 Copy Code', code)],
                 }, { quoted: msg, forceButtons: true });
             });
@@ -480,7 +480,7 @@ export async function getpairCommand(sock, chat, msg, args) {
                                 chat,
                                 {
                                     body: `🔑 *Pairing Code for +${rawNumber}:*\n\n\`\`\`${code}\`\`\`\n\nEnter this code in WhatsApp → Linked Devices.`,
-                                    footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+                                    footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
                                     buttons: [createCtaCopy('📋 Copy Code', code)]
                                 },
                                 { quoted: msg, forceButtons: true }
@@ -857,7 +857,7 @@ export async function ownerlistCommand(sock, chat, msg) {
     try {
         const { owner, owners } = getOwnerDetails();
         const mentions = [];
-        const lines = ['👑 *Al-Jin Owners*', ''];
+        const lines = ['👑 *𝓛𝓲𝓷 𝓨𝓾𝓮 Owners*', ''];
         if (owner) {
             lines.push(`• *Primary Owner:* @${owner}`);
             mentions.push(`${owner}@s.whatsapp.net`);
@@ -1042,7 +1042,7 @@ export async function stealfullCommand(sock, chat, msg, args) {
             `🖼️ *Profile Picture:* ${updatedPfp ? '✅ Cloned' : '❌ Unavailable/Failed'}`,
             `📝 *About Status:* ${updatedAbout ? `✅ Cloned ("${aboutText}")` : '❌ Unavailable/Failed'}`,
             '',
-            'Provided by 𝐀𝐥-𝐉𝐢𝐧'
+            'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮'
         ].join('\n');
 
         await sock.sendMessage(chat, { text: report, mentions: [target] }, { quoted: msg });

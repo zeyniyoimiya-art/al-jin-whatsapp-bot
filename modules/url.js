@@ -50,7 +50,7 @@ export async function urlCommand(sock, chat, msg, args) {
                 '🔗 *public url*\n\n' +
                 `${url}\n\n` +
                 `_size: ${(buffer.length / 1024).toFixed(1)} KB_\n\n` +
-                'Provided by 𝐀𝐥-𝐉𝐢𝐧'
+                'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮'
         }, { quoted: msg });
 
         await editStatus(sock, chat, status, '✅ *Upload complete*');

@@ -11,7 +11,7 @@ export async function reqlocationCommand(sock, chat, msg) {
       chat,
       {
         body: '📍 *Location Request*\n\nShare your location using the button, or just send your location manually (attachment → location).',
-        footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+        footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
         buttons: [createLocationRequest('📍 Share Location')],
       },
       { quoted: msg, sender: msg.key.participant || msg.key.remoteJid }
@@ -41,7 +41,7 @@ export async function handleIncomingLocation(sock, chat, msg) {
       name !== 'Shared Location' ? `• *Label:* ${name}` : '',
       `• *Google Maps:* https://maps.google.com/?q=${lat},${lng}`,
       '',
-      'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+      'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
     ].filter(Boolean).join('\n');
 
     await sock.sendMessage(

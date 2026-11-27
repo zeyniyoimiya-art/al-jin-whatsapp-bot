@@ -32,7 +32,7 @@ export async function settingsCommand(sock, chat, msg) {
   const prefix = getPrefix();
   const replyMode = getReplyMode();
 
-  let text = `⚙️ *Al-Jin System Settings & Modes*\n\n`;
+  let text = `⚙️ *𝓛𝓲𝓷 𝓨𝓾𝓮 System Settings & Modes*\n\n`;
 
   text += `👻 *Ghost Mode*\n`;
   text += `• Antidelete: *${ghostState.on !== false ? 'ON' : 'OFF'}*\n`;
@@ -69,7 +69,7 @@ export async function settingsCommand(sock, chat, msg) {
   text += `• Max download: *${getMaxDownloadMB()} MB* · video up to *${getVideoHeight()}p*\n`;
   text += `• Alerts go to: *+${getOwnerDetails().owner || 'not set'}*\n\n`;
 
-  text += `Provided by 𝐀𝐥-𝐉𝐢𝐧`;
+  text += `Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮`;
 
   return sendWithCta(sock, chat, text, { quoted: msg });
 }

@@ -9,7 +9,7 @@ import { getPrefix } from '../core/settings.js';
 import { smartChat } from '../lib/llm.js';
 import { perSession } from '../core/context.js';
 
-const SYSTEM = 'You are Al-Jin, a smart, friendly and quick WhatsApp assistant. Always answer in the same language and script the user writes in '
+const SYSTEM = 'You are Lin Yue Bot, a smart, friendly and quick WhatsApp assistant. Always answer in the same language and script the user writes in '
   + '(Roman Urdu stays Roman Urdu, Urdu script stays Urdu script, English stays English). Be concise — usually under 120 words unless the user asks for detail. '
   + 'Use WhatsApp formatting only (*bold*, _italic_, short lists); no markdown headings or tables. Be honest when you are not sure.';
 
@@ -32,7 +32,7 @@ export const bot = safe('bot', async (sock, chat, msg, args) => {
   let quoted = '';
   try { quoted = textOfMessage(quotedOf(msg)?.message) || ''; } catch {}
   if (!typed && !quoted) {
-    return reply(sock, chat, msg, `🤖 *Al-Jin AI*\nAsk anything: \`${p}bot what is photosynthesis?\`\nReply to any message with \`${p}bot\` to ask about it · \`${p}bot reset\` clears the memory.`);
+    return reply(sock, chat, msg, `🤖 *𝓛𝓲𝓷 𝓨𝓾𝓮 AI*\nAsk anything: \`${p}bot what is photosynthesis?\`\nReply to any message with \`${p}bot\` to ask about it · \`${p}bot reset\` clears the memory.`);
   }
   const prompt = typed && quoted ? `${typed}\n\n(Replying to this message:\n${quoted.slice(0, 1500)})` : (typed || quoted);
 

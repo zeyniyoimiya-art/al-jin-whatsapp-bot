@@ -93,7 +93,7 @@ export async function playCommand(sock, chat, msg, args) {
         }, { quoted: msg });
       }
 
-      await editStatus(sock, chat, status, `✅ *Audio sent*\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`);
+      await editStatus(sock, chat, status, `✅ *Audio sent*\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`);
       await reactMsg(sock, chat, msg.key, EMOJIS.SUCCESS);
     } catch (e) {
       console.error('[playCommand]', e);
@@ -142,14 +142,14 @@ async function videoJob(sock, chat, msg, { target, tag, icon, label, height = nu
       // Final safety net: if it still isn't WhatsApp-playable, send as a document so it never arrives broken.
       // Large videos go out as documents: WhatsApp handles those reliably up to 2 GB.
       const playable = size <= getDocThresholdBytes() && await isPlayable(finalPath).catch(() => false);
-      const caption = `${icon} *${label}${height ? ` · ${height}p` : ''}*\nSize: ${MB(size)} MB\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`;
+      const caption = `${icon} *${label}${height ? ` · ${height}p` : ''}*\nSize: ${MB(size)} MB\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`;
       if (playable) {
         await sock.sendMessage(chat, { video: { url: finalPath }, mimetype: 'video/mp4', fileName: path.basename(finalPath), caption }, { quoted: msg });
       } else {
         await sock.sendMessage(chat, { document: { url: finalPath }, mimetype: 'video/mp4', fileName: path.basename(finalPath), caption }, { quoted: msg });
       }
 
-      await editStatus(sock, chat, status, `✅ *Sent (${MB(size)} MB)*\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`);
+      await editStatus(sock, chat, status, `✅ *Sent (${MB(size)} MB)*\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`);
       await reactMsg(sock, chat, msg.key, EMOJIS.SUCCESS);
     } catch (e) {
       console.error(`[${tag}]`, e);
@@ -188,7 +188,7 @@ async function offerQualities(sock, chat, msg, { target, cmd, icon, label }) {
     return createQuickReply(`${o.height}p${o.fps > 30 ? o.fps : ''}${size}${note}`, `${cmd} -q${o.height} ${sum.url}`);
   });
   const body = `${icon} *${sum.title || label}*\n${sum.uploader ? `👤 ${sum.uploader}  ` : ''}${sum.duration ? `⏱️ ${fmtDur(sum.duration)}` : ''}\n\nChoose the quality to download:`;
-  await sendInteractive(sock, chat, { body, footer: 'Al-Jin', buttons }, { quoted: msg });
+  await sendInteractive(sock, chat, { body, footer: '𝓛𝓲𝓷 𝓨𝓾𝓮', buttons }, { quoted: msg });
   return true;
 }
 

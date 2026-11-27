@@ -125,7 +125,7 @@ export function formatSpecs(name, specs) {
     const v = specs[key];
     if (v && v !== '-') lines.push(`${icon} *${label}* · ${v.length > 220 ? v.slice(0, 217) + '…' : v}`);
   }
-  lines.push('', 'Provided by 𝐀𝐥-𝐉𝐢𝐧');
+  lines.push('', 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮');
   return lines.join('\n');
 }
 
@@ -211,7 +211,7 @@ async function aiPhoneCard(sock, chat, msg, q, why) {
   if (/^\s*NOT FOUND/i.test(text)) throw new Error('unknown phone');
   const link = `https://priceoye.pk/search?q=${encodeURIComponent(q)}`;
   return sock.sendMessage(chat, {
-    text: `📱 *${q}*\n\n${text.slice(0, 1800)}\n\nCheck Price & Specs on PriceOye / WhatMobile:\n${link}\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+    text: `📱 *${q}*\n\n${text.slice(0, 1800)}\n\nCheck Price & Specs on PriceOye / WhatMobile:\n${link}\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
   }, { quoted: msg });
 }
 
@@ -251,6 +251,6 @@ async function laptopDetail(sock, chat, msg, name) {
     'Write "unknown" for anything you are not sure about. Never guess numbers.');
   const link = `https://www.notebookcheck.net/Search.8222.0.html?q=${encodeURIComponent(name)}`;
   return sock.sendMessage(chat, {
-    text: `💻 *${name}*\n\n${text.slice(0, 2500)}\n\n⚠️ _AI-compiled from model knowledge (no free laptop spec API exists) — verify:_\n${link}\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+    text: `💻 *${name}*\n\n${text.slice(0, 2500)}\n\n⚠️ _AI-compiled from model knowledge (no free laptop spec API exists) — verify:_\n${link}\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
   }, { quoted: msg });
 }

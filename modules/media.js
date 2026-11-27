@@ -158,7 +158,7 @@ export async function bookCommand(sock, chat, msg, args) {
         chat,
         {
           body: lines.join('\n'),
-          footer: `Source: ${r.source} · Provided by 𝐀𝐥-𝐉𝐢𝐧`,
+          footer: `Source: ${r.source} · Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
           buttons,
         },
         { quoted: msg }
@@ -374,12 +374,12 @@ export async function coupleppCommand(sock, chat, msg, args) {
       try {
         await sock.sendMessage(chat, {
           image: { url: p.male },
-          caption: `💞 *Couple PP (Pair ${i + 1} - #${p.num})* · Male\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+          caption: `💞 *Couple PP (Pair ${i + 1} - #${p.num})* · Male\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
         }, i === 0 ? { quoted: msg } : undefined);
 
         await sock.sendMessage(chat, {
           image: { url: p.female },
-          caption: `💞 *Couple PP (Pair ${i + 1} - #${p.num})* · Female\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+          caption: `💞 *Couple PP (Pair ${i + 1} - #${p.num})* · Female\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
         });
         sent++;
       } catch (err) {
@@ -471,7 +471,7 @@ export async function memeCommand(sock, chat, msg, args) {
 
     await sock.sendMessage(chat, {
       image: memeBuf,
-      caption: `🎭 *Custom Meme*\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`
+      caption: `🎭 *Custom Meme*\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`
     }, { quoted: msg });
   } catch (e) {
     await sock.sendMessage(chat, { text: `⚠️ meme failed: ${e.message}` }, { quoted: msg }).catch(() => {});

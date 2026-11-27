@@ -304,7 +304,7 @@ export const subtitle = safe('subtitle', async (sock, chat, msg, args) => {
         prog.begin('send');
         await sock.sendMessage(chat, {
           document: { url: srtPath }, mimetype: 'application/x-subrip', fileName: 'subtitles.srt',
-          caption: `📝 *Subtitles* · ${cues.length} lines${langNote} · ${provider}${why}${warn}\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+          caption: `📝 *Subtitles* · ${cues.length} lines${langNote} · ${provider}${why}${warn}\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
         }, { quoted: msg });
         prog.stop();
         return status('✅ Done');
@@ -319,7 +319,7 @@ export const subtitle = safe('subtitle', async (sock, chat, msg, args) => {
       try { fs.unlinkSync(input); } catch {}   // free disk before uploading
 
       const size = fs.statSync(output).size;
-      const caption = `🎬 *Subtitles added* · ${STYLES[opts.style].label} · ${FONTS[opts.font].family}${langNote} · ${provider}${warn}\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`;
+      const caption = `🎬 *Subtitles added* · ${STYLES[opts.style].label} · ${FONTS[opts.font].family}${langNote} · ${provider}${warn}\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`;
       prog.begin('send');
       if (size > VIDEO_AS_DOC_BYTES) {
         await sock.sendMessage(chat, { document: { url: output }, mimetype: 'video/mp4', fileName: 'subtitled.mp4', caption }, { quoted: msg });

@@ -113,7 +113,7 @@ YouTube frequently blocks bot downloads or demands sign-in. Setting YouTube cook
 • \`${p}ytcookies status\` — Check active cookies
 • \`${p}ytcookies clear\` — Clear stored cookies
 
-Provided by 𝐀𝐥-𝐉𝐢𝐧`;
+Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮`;
 
   return sendWithCta(sock, chat, guideText, { quoted: msg });
 }

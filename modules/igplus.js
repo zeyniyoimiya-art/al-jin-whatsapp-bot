@@ -165,7 +165,7 @@ export async function igzipCommand(sock, chat, msg, rest) {
     await zip.finalize();
     await sock.sendMessage(chat, {
       document: { url: zipPath }, mimetype: 'application/zip', fileName: `${username}_${added}items.zip`,
-      caption: `📦 *@${username}* — ${added} item${added > 1 ? 's' : ''}${skipped ? ` (${skipped} skipped)` : ''}\n${(total / 1048576).toFixed(1)} MB${note}\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+      caption: `📦 *@${username}* — ${added} item${added > 1 ? 's' : ''}${skipped ? ` (${skipped} skipped)` : ''}\n${(total / 1048576).toFixed(1)} MB${note}\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
     }, { quoted: msg });
     await edit(sock, chat, st, '✅ ZIP sent');
   } catch (e) {
@@ -247,7 +247,7 @@ export async function igprofileCommand(sock, chat, msg, rest) {
       u.external_url ? `• *link* · ${u.external_url}` : '',
       u.is_business_account ? '• *account* · business' : u.is_professional_account ? '• *account* · professional' : '',
       `• *user id* · ${u.id}`,
-      '', '_Join date isn’t exposed by Instagram’s public API._', 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+      '', '_Join date isn’t exposed by Instagram’s public API._', 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
     ].filter(Boolean);
     const pic = u.profile_pic_url_hd || u.profile_pic_url;
     if (pic) {

@@ -16,7 +16,7 @@ import { isOwner } from '../core/identity.js';
 import { setSetting } from '../core/settings.js';
 import { perSession } from '../core/context.js';
 
-const SYSTEM = 'You are Al-Jin, a concise, friendly WhatsApp assistant. Keep answers short and plain text (light *bold* is fine, no markdown headers or tables).';
+const SYSTEM = 'You are Lin Yue Bot, a concise, friendly WhatsApp assistant. Keep answers short and plain text (light *bold* is fine, no markdown headers or tables).';
 const MAX_OUT = 3800;
 const COOLDOWN_MS = 4000;
 const lastCall = perSession(() => new Map());
@@ -96,7 +96,7 @@ export async function jinCreateCommand(sock, chat, msg, rest, n = 1) {
           await new Promise((r) => setTimeout(r, 16000));
         }
       }
-      await sock.sendMessage(chat, { image: { url: dest }, caption: `🎨 *${prompt.slice(0, 200)}*\n_model: ${model}_\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧` }, { quoted: msg });
+      await sock.sendMessage(chat, { image: { url: dest }, caption: `🎨 *${prompt.slice(0, 200)}*\n_model: ${model}_\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮` }, { quoted: msg });
       await react(sock, chat, msg, '☑');
     } finally { try { fs.unlinkSync(dest); } catch {} }
   });

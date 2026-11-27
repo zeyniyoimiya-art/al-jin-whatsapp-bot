@@ -58,7 +58,7 @@ function cpuStatus() {
     '',
     `_Heavy jobs (ffmpeg, yt-dlp…) run in short slices, so they finish later but never spike above the limit. ${hasProc() ? '' : 'On this OS only the bot itself is gated; child jobs just get a lower priority. '}Startup/pairing is not throttled._`,
     '',
-    'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+    'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
   );
   return lines.join('\n');
 }
@@ -89,7 +89,7 @@ function ramStatus() {
     '',
     '_At 75% caches are trimmed, at 90% new commands wait for memory to drop, at 100% the biggest runaway job is stopped._',
     '',
-    'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+    'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
   );
   return lines.join('\n');
 }

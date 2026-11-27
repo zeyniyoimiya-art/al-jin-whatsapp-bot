@@ -8,7 +8,7 @@ const MANUAL_URL = 'https://raw.githubusercontent.com/themalik-g/wraith_manual/m
 
 export async function usermanualCommand(sock, chat, msg) {
   const statusMsg = await sock.sendMessage(chat, {
-    text: '📄 *Fetching Al-Jin Manual PDF…*'
+    text: '📄 *Fetching Lin Yue Manual PDF…*'
   }, { quoted: msg });
 
   try {
@@ -23,8 +23,8 @@ export async function usermanualCommand(sock, chat, msg) {
       {
         document: pdfBuffer,
         mimetype: 'application/pdf',
-        fileName: 'Al-Jin_Manual.pdf',
-        caption: '📄 *Al-Jin Bot — Official User Manual*\n\nDownloaded from: `https://github.com/themalik-g/wraith_manual.git`\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧',
+        fileName: 'Lin_Yue_Manual.pdf',
+        caption: '📄 *Al-Jin Bot — Official User Manual*\n\nDownloaded from: `https://github.com/themalik-g/wraith_manual.git`\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
       },
       { quoted: msg }
     );

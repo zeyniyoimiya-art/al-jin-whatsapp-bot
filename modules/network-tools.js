@@ -49,7 +49,7 @@ export async function speedtestCommand(sock, chat, msg) {
       `📥 *Download:* ${dlSpeed} Mbps`,
       `📤 *Upload:* ${ulSpeed} Mbps`,
       '',
-      'Provided by 𝐀𝐥-𝐉𝐢𝐧'
+      'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮'
     ].join('\n');
 
     await sock.sendMessage(chat, { text: report }, { quoted: msg });
@@ -98,7 +98,7 @@ export async function npmCommand(sock, chat, msg, args) {
       `📊 *Weekly Downloads:* ${downloads}`,
       `🔗 *Homepage:* ${homepage}`,
       '',
-      'Provided by 𝐀𝐥-𝐉𝐢𝐧'
+      'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮'
     ].join('\n');
 
     await sock.sendMessage(chat, { text: report }, { quoted: msg });
@@ -163,7 +163,7 @@ export async function unrollCommand(sock, chat, msg, args) {
     }
 
     lines.push('');
-    lines.push('Provided by 𝐀𝐥-𝐉𝐢𝐧');
+    lines.push('Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮');
 
     await sock.sendMessage(chat, { text: lines.join('\n') }, { quoted: msg });
   } catch (e) {
@@ -195,7 +195,7 @@ export async function web2imgCommand(sock, chat, msg, args) {
 
     await sock.sendMessage(chat, {
       image: imgBuffer,
-      caption: `📸 *Web Screenshot*\n\nURL: ${url}\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+      caption: `📸 *Web Screenshot*\n\nURL: ${url}\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
     }, { quoted: msg });
   } catch (e) {
     await sock.sendMessage(chat, { text: `⚠️ web2img failed: ${e.message}` }, { quoted: msg }).catch(() => {});
@@ -223,7 +223,7 @@ export async function tempmailCommand(sock, chat, msg, args) {
 
     await sendInteractive(sock, chat, {
       body: `📧 *Temporary Email Generated (Guerrilla Mail)*\n\n\`${data.email_addr}\`\n\nTo check inbox:\n\`.readmail\` (or \`.readmail ${data.sid_token}\`)`,
-      footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+      footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
       buttons: [createCtaCopy('📋 Copy Email', data.email_addr)],
     }, { quoted: msg, forceButtons: true });   // copy button even in text reply mode
   } catch (e) {
@@ -262,7 +262,7 @@ export async function readmailCommand(sock, chat, msg, args) {
     });
 
     lines.push('');
-    lines.push('Provided by 𝐀𝐥-𝐉𝐢𝐧');
+    lines.push('Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮');
 
     for (const chunk of chunkText(lines.join('\n'), 3800)) {
       await sock.sendMessage(chat, { text: chunk }, { quoted: msg });
@@ -311,7 +311,7 @@ export async function whatanimeCommand(sock, chat, msg) {
       `⏱️ *Timestamp:* ${timestamp}`,
       `🎯 *Similarity:* ${similarity}%`,
       '',
-      'Provided by 𝐀𝐥-𝐉𝐢𝐧'
+      'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮'
     ].join('\n');
 
     if (match.video) {
@@ -384,7 +384,7 @@ export async function githubdiffCommand(sock, chat, msg, args) {
     ].join('\n');
 
     if (diffText.length <= 3000) {
-      const fullText = `${header}\`\`\`diff\n${diffText.slice(0, 2800)}\n\`\`\`\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`;
+      const fullText = `${header}\`\`\`diff\n${diffText.slice(0, 2800)}\n\`\`\`\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`;
       return await sock.sendMessage(chat, { text: fullText }, { quoted: msg });
     } else {
       const snippet = diffText.slice(0, 1500);
@@ -394,7 +394,7 @@ export async function githubdiffCommand(sock, chat, msg, args) {
         document: docBuf,
         mimetype: 'text/x-diff',
         fileName,
-        caption: `${header}\`\`\`diff\n${snippet}\n...\n[Truncated - full diff attached above]\n\`\`\`\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`
+        caption: `${header}\`\`\`diff\n${snippet}\n...\n[Truncated - full diff attached above]\n\`\`\`\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`
       }, { quoted: msg });
     }
   } catch (e) {
@@ -431,7 +431,7 @@ export async function urbanCommand(sock, chat, msg, args) {
       cleanExample ? `💬 *Example:*\n_${cleanExample}_\n` : '',
       `👍 *Upvotes:* ${item.thumbs_up || 0}  |  👎 *Downvotes:* ${item.thumbs_down || 0}`,
       '',
-      'Provided by 𝐀𝐥-𝐉𝐢𝐧'
+      'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮'
     ].filter(Boolean).join('\n');
 
     await sock.sendMessage(chat, { text: report }, { quoted: msg });

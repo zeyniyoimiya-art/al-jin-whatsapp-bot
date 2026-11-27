@@ -831,7 +831,7 @@ function ensureWorker(root) {
     WRAITH_DATA_DIR: instDir(root, 'main'),
   };
 
-  say(cyan(`starting Al-Jin runtime (heap ${maxOldSpace} MB)`));
+  say(cyan(`starting Lin Yue runtime (heap ${maxOldSpace} MB)`));
   const proc = spawn('node', args, { cwd: root, stdio: ['ignore', 'pipe', 'pipe', 'ipc'], env });
   worker = proc;
 
@@ -1065,7 +1065,7 @@ async function wizard(
 
   console.log(
     violet(' │') +
-      ' Al-Jin · pairing wizard ' +
+      ' Lin Yue · pairing wizard ' +
       violet('│')
   );
 

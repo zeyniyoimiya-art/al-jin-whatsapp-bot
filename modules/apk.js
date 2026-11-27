@@ -99,7 +99,7 @@ async function sendApk(sock, chat, msg, status, app, label = 'APK') {
     await sock.sendMessage(chat, {
       document: { url: dest }, mimetype: APK_MIME,
       fileName: `${safe(app.name)}_${safe(app.version)}.apk`,
-      caption: `📦 *${app.name}*\n• package · ${app.pkg}\n• version · ${app.version}\n• size · ${mb(size)} MB\n• source · ${app.source}\n\n_Unmodified ${label} from the store._\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+      caption: `📦 *${app.name}*\n• package · ${app.pkg}\n• version · ${app.version}\n• size · ${mb(size)} MB\n• source · ${app.source}\n\n_Unmodified ${label} from the store._\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
     }, { quoted: msg });
     await edit(sock, chat, status, '✅ Sent');
     await sock.sendMessage(chat, { react: { text: '☑', key: msg.key } }).catch(() => {});

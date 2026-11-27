@@ -75,7 +75,7 @@ const ANIMS = {
     },
     macoc: {
         intro: 'Processing…', gap: 900,
-        frames: () => ['`Connecting to the server…`', '`Starting login…`', ...range(11).map((i) => `\`Loading Al-Jin… ${i * 10}%\n${bar(i * 10, 24)}\``), '`✅ Al-Jin is alive and ready.`'],
+        frames: () => ['`Connecting to the server…`', '`Starting login…`', ...range(11).map((i) => `\`Loading Lin Yue… ${i * 10}%\n${bar(i * 10, 24)}\``), '`✅ Lin Yue is alive and ready.`'],
     },
     hand: { intro: '👈', gap: 800, frames: () => range(36).map((i) => HANDS[i % HANDS.length]) },
     theart: { intro: '💓', gap: 700, frames: () => range(27).map((i) => HEARTS[i % HEARTS.length]) },

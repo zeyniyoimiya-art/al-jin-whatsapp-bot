@@ -404,7 +404,7 @@ export async function romCommand(sock, chat, msg) {
 //  .alive
 // ─────────────────────────────────────────────
 export async function aliveCommand(sock, chat, msg) {
-    return sendWithCta(sock, chat, '𝐀𝐥-𝐉𝐢𝐧 𝗜𝗦 𝗔𝗟𝗜𝗩𝗘 ✅', { quoted: msg });
+    return sendWithCta(sock, chat, '𝓛𝓲𝓷 𝓨𝓾𝓮 𝗜𝗦 𝗔𝗟𝗜𝗩𝗘 ✅', { quoted: msg });
 }
 
 // ─────────────────────────────────────────────
@@ -422,7 +422,7 @@ export async function restartCommand(sock, chat, msg) {
     if (!msg.key.fromMe && !isOwner(from)) {
         return sock.sendMessage(chat, { text: '⛔ Owner only.' }, { quoted: msg });
     }
-    await sock.sendMessage(chat, { text: '🔄 *Restarting Al-Jin server…*' }, { quoted: msg });
+    await sock.sendMessage(chat, { text: '🔄 *Restarting 𝓛𝓲𝓷 𝓨𝓾𝓮 server…*' }, { quoted: msg });
     setTimeout(() => {
         process.exit(0);
     }, 1000);

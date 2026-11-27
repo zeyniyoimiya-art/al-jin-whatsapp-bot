@@ -119,7 +119,7 @@ export async function uploadCommand(sock, chat, msg, args) {
       });
 
       await sock.sendMessage(chat, {
-        text: `📤 *Upload complete*\n\n🔗 ${r.url}\n\n📦 ${name} · ${MB(r.size)} MB\n🏠 ${r.host}\n⏳ Kept: ${r.retention}\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+        text: `📤 *Upload complete*\n\n🔗 ${r.url}\n\n📦 ${name} · ${MB(r.size)} MB\n🏠 ${r.host}\n⏳ Kept: ${r.retention}\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
       }, { quoted: msg });
       await editStatus(sock, chat, status, `✅ *Uploaded* to ${r.host}`);
       await reactMsg(sock, chat, msg.key, EMOJIS.SUCCESS);

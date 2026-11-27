@@ -17,7 +17,7 @@ import { getTmpDir } from '../lib/ytdlp.js';
 import { downloadToFile } from '../lib/net.js';
 import { getMaxDownloadBytes, getDocThresholdBytes, getDownloadTimeoutMs } from '../core/limits.js';
 
-const BRAND = 'Provided by 𝐀𝐥-𝐉𝐢𝐧';
+const BRAND = 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮';
 // size caps follow the live  .dlcap  setting (core/limits.js)
 const maxVideo = () => getMaxDownloadBytes();
 const maxApk = () => getMaxDownloadBytes();

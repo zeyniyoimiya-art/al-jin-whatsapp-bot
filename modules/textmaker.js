@@ -22,7 +22,7 @@ function parseTextArgs(args, isDual) {
     if (spaceIndex !== -1) {
       return { text1: raw.slice(0, spaceIndex).trim(), text2: raw.slice(spaceIndex + 1).trim() };
     }
-    return { text1: raw, text2: 'Al-Jin' };
+    return { text1: raw, text2: 'Lin Yue' };
   }
 
   return { text1: raw, text2: '' };
@@ -51,7 +51,7 @@ export async function handleTextmakerCommand(sock, chat, msg, effectKey, args) {
     const buffer = await createEphotoImage(effectKey, text1, text2);
     await sock.sendMessage(chat, {
       image: buffer,
-      caption: `🎨 *Ephoto360:* ${effectKey}\n💬 _${text1}${text2 ? ' | ' + text2 : ''}_\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`
+      caption: `🎨 *Ephoto360:* ${effectKey}\n💬 _${text1}${text2 ? ' | ' + text2 : ''}_\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`
     }, { quoted: msg });
 
     await sock.sendMessage(chat, { text: '✅ *Done!*', edit: statusMsg.key }).catch(() => {});

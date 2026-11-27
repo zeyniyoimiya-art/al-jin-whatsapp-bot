@@ -41,7 +41,7 @@ const BATCH = 3;                                        // episodes per batch
 const PAGE = 5;                                         // titles per button page ("➡️ More" shows the next ones)
 const MAX_TITLES = 25;                                  // max titles kept per search
 const sxe = (s, e) => `S${String(s).padStart(2, '0')}E${String(e).padStart(2, '0')}`;
-const FOOTER = 'Provided by 𝐀𝐥-𝐉𝐢𝐧';
+const FOOTER = 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮';
 const MIME = { mp4: 'video/mp4', m4v: 'video/mp4', mkv: 'video/x-matroska', avi: 'video/x-msvideo', webm: 'video/webm', ogv: 'video/ogg', mov: 'video/quicktime' };
 
 const P = () => prefix();

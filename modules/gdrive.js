@@ -52,7 +52,7 @@ async function showFolder(sock, chat, msg, ref) {
   }));
   const more = items.length > shown.length ? `\n_Showing the first ${shown.length} of ${items.length}._` : '';
   const body = `📁 *Google Drive folder* — ${items.length} item${items.length === 1 ? '' : 's'}\n\nChoose one to download:${more}`;
-  await sendInteractive(sock, chat, { body, footer: 'Al-Jin', buttons: [createSingleSelect('Select file', [{ title: 'Files', rows }])] }, { quoted: msg });
+  await sendInteractive(sock, chat, { body, footer: '𝓛𝓲𝓷 𝓨𝓾𝓮', buttons: [createSingleSelect('Select file', [{ title: 'Files', rows }])] }, { quoted: msg });
 }
 
 async function driveJob(sock, chat, msg, ref, format) {
@@ -100,7 +100,7 @@ async function driveJob(sock, chat, msg, ref, format) {
         await sock.sendMessage(chat, { document: src, mimetype: dl.mime, fileName: dl.name }, { quoted: msg });
       }
 
-      await editStatus(sock, chat, status, `✅ *Sent* — ${dl.name} (${MB(bytes)} MB)\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`);
+      await editStatus(sock, chat, status, `✅ *Sent* — ${dl.name} (${MB(bytes)} MB)\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`);
       await reactMsg(sock, chat, msg.key, EMOJIS.SUCCESS);
     } catch (e) {
       console.error('[gd]', e?.message || e);

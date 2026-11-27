@@ -138,7 +138,7 @@ async function socialSearch(sock, chat, msg, args, fn, label) {
             r.videos ? `• *videos* · ${r.videos}` : '',
             r.verified ? '✅ verified account' : '',
             '',
-            'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+            'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
         ].filter(Boolean);
         if (r.profilePic) {
             try {

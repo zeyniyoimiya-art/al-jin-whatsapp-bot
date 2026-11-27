@@ -11,8 +11,13 @@ import { readJson } from '../core/state-io.js';
 import { CONFIG } from '../config.js';
 import { ramSummary, uptimeText, platformParts, botVersion } from '../lib/sysinfo.js';
 import { inState } from '../core/paths.js';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const MENU_IMAGE = process.env.WRAITH_MENU_IMAGE || 'https://i.picrd.com/images/YZUezOztDow.jpg';
+// Banner del menú: ruta local por defecto (assets/menu-banner.jpg en este repo).
+// También acepta una URL http(s) con WRAITH_MENU_IMAGE en .env.
+const MENU_IMAGE = process.env.WRAITH_MENU_IMAGE || 'assets/menu-banner.jpg';
 // .imenu on      (default) → ONE message: banner image, whole menu as its caption
 // .imenu off               → ONE plain text message
 // .imenu preview           → ONE text message with the banner as a large preview card
@@ -61,13 +66,28 @@ let _thumb = null;
 async function menuThumb() {
   if (_thumb) return _thumb;
   try {
-    const ctl = new AbortController();
-    const t = setTimeout(() => ctl.abort(), 8000);
-    const res = await fetch(MENU_IMAGE, { signal: ctl.signal });
-    clearTimeout(t);
-    if (!res.ok) return null;
-    _thumb = Buffer.from(await res.arrayBuffer());
-    return _thumb;
+    if (/^https?:\/\//i.test(MENU_IMAGE)) {
+      const ctl = new AbortController();
+      const t = setTimeout(() => ctl.abort(), 8000);
+      const res = await fetch(MENU_IMAGE, { signal: ctl.signal });
+      clearTimeout(t);
+      if (!res.ok) return null;
+      _thumb = Buffer.from(await res.arrayBuffer());
+      return _thumb;
+    }
+    // Banner local: primero relativo al directorio de trabajo, luego relativo a la raíz del repo (modules/../)
+    const rel = String(MENU_IMAGE).replace(/^\.?[\\/]/, '');
+    const candidates = [
+      path.resolve(rel),
+      fileURLToPath(new URL(`../${rel}`, import.meta.url)),
+    ];
+    for (const p of candidates) {
+      if (fs.existsSync(p) && fs.statSync(p).isFile()) {
+        _thumb = fs.readFileSync(p);
+        return _thumb;
+      }
+    }
+    return null;
   } catch { return null; }
 }
 
@@ -148,8 +168,9 @@ async function sendMenu(sock, chat, text, msg, mentions = []) {
   if (mode === 'on') {
     // Banner image + whole menu in ONE message, sent as a real link preview (uploaded 'thumbnail-link'
     // image). A plain image-with-caption menu is what normal WhatsApp accounts were dropping.
+    let thumbBuf = null;
     try {
-      const thumbBuf = await menuThumb();
+      thumbBuf = await menuThumb();
       if (thumbBuf) {
         const sent = await sendLinkCard(sock, chat, {
           text, mentions, quoted, thumbBuf,
@@ -160,7 +181,7 @@ async function sendMenu(sock, chat, text, msg, mentions = []) {
     } catch (e) { try { console.error('[menu:on]', e?.message); } catch {} }
     if (text.length <= 1000) {
       try {
-        return await sock.sendMessage(chat, { image: { url: MENU_IMAGE }, caption: text, mentions, contextInfo: ctx() }, { quoted });
+        return await sock.sendMessage(chat, { image: thumbBuf ? thumbBuf : { url: MENU_IMAGE }, caption: text, mentions, contextInfo: ctx() }, { quoted });
       } catch (e) { try { console.error('[menu:image]', e?.message); } catch {} }
     }
   }
@@ -712,7 +733,7 @@ function renderHeaderBox(prefix, isOwnerUser, senderJid = '') {
   const who = String(senderJid || '').split('@')[0].split(':')[0] || 'user';
   const total = visibleRegistry(isOwnerUser).reduce((n, g) => n + (isOwnerUser ? g.commands : g.commands.filter((x) => !x.ownerOnly)).length, 0);
   return [
-    '      【 🤖 𝐀𝐥-𝐉𝐢𝐧 🤖 】',
+    `      【 🌙 ${CONFIG.botName || 'Lin Yue Bot'} 🌙 】`,
     '┌─────────────────┈⚝',
     `│ ${ownerText}`,
     `│ ℹ️ ${guideCmd}`,
@@ -828,7 +849,7 @@ async function sendListMenu(sock, chat, msg, prefix, isOwnerUser, senderJid = ''
   ];
   let image;
   try { if (imenuMode() !== 'off') image = await menuThumb(); } catch { /* no banner */ }
-  return sendInteractive(sock, chat, { body, footer: 'Al-Jin', buttons, mentions, ...(image ? { image } : {}) }, { quoted });
+  return sendInteractive(sock, chat, { body, footer: CONFIG.botName || 'Lin Yue Bot', buttons, mentions, ...(image ? { image } : {}) }, { quoted });
 }
 
 export async function helpCommand(sock, chat, msg, args) {

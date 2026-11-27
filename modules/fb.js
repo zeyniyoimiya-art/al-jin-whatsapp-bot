@@ -49,10 +49,10 @@ async function downloadFb(sock, chat, msg, raw) {
     if (size > maxBytes()) throw new Error(`file is ${(size / 1048576).toFixed(0)} MB (limit ${maxMB()} MB — raise it with .dlcap)`);
     const isImg = /\.(jpe?g|png|webp)$/i.test(file);
     await sock.sendMessage(chat, isImg
-      ? { image: { url: file }, caption: 'Provided by 𝐀𝐥-𝐉𝐢𝐧' }
+      ? { image: { url: file }, caption: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮' }
       : (size > getDocThresholdBytes()
-          ? { document: { url: file }, mimetype: 'video/mp4', fileName: path.basename(file), caption: 'Provided by 𝐀𝐥-𝐉𝐢𝐧' }
-          : { video: { url: file }, mimetype: 'video/mp4', caption: 'Provided by 𝐀𝐥-𝐉𝐢𝐧' }), { quoted: msg });
+          ? { document: { url: file }, mimetype: 'video/mp4', fileName: path.basename(file), caption: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮' }
+          : { video: { url: file }, mimetype: 'video/mp4', caption: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮' }), { quoted: msg });
     await edit(sock, chat, st, '✅ *Facebook:* done');
     return sock.sendMessage(chat, { react: { text: '☑', key: msg.key } }).catch(() => {});
   } catch (e) {
@@ -79,7 +79,7 @@ async function downloadFb(sock, chat, msg, raw) {
     if (dlUrl) {
       const dest = path.join(dir, `${prefix}_esm.mp4`);
       await downloadToFile(dlUrl, dest, maxBytes());
-      await sock.sendMessage(chat, { video: { url: dest }, mimetype: 'video/mp4', caption: 'Provided by 𝐀𝐥-𝐉𝐢𝐧' }, { quoted: msg });
+      await sock.sendMessage(chat, { video: { url: dest }, mimetype: 'video/mp4', caption: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮' }, { quoted: msg });
       await edit(sock, chat, st, '✅ *Facebook:* done');
       return sock.sendMessage(chat, { react: { text: '☑', key: msg.key } }).catch(() => {});
     }
@@ -108,7 +108,7 @@ async function pageCard(sock, chat, msg, name) {
     const og = (p) => html.match(new RegExp(`<meta property="og:${p}" content="([^"]*)"`, 'i'))?.[1]?.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#039;/g, "'") || '';
     const title = og('title'); const desc = og('description'); const img = og('image');
     if (!title || /^(facebook|log in)/i.test(title)) throw new Error('page not public or not found');
-    const caption = `📘 *${title}*\n\n${desc.slice(0, 400) || '—'}\n\n🔗 https://www.facebook.com/${name}\n_Facebook only shares public preview data (no follower counts) with bots._\nProvided by 𝐀𝐥-𝐉𝐢𝐧`;
+    const caption = `📘 *${title}*\n\n${desc.slice(0, 400) || '—'}\n\n🔗 https://www.facebook.com/${name}\n_Facebook only shares public preview data (no follower counts) with bots._\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`;
     if (img) {
       const dest = path.join(getTmpDir(), `fbp_${Date.now()}.jpg`);
       try {

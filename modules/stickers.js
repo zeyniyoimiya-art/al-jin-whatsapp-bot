@@ -18,7 +18,7 @@ import { ffmpegPath } from '../lib/ffmpeg-resolver.js';
 import { getTmpDir, cleanFile } from '../lib/ytdlp.js';
 import { inspectWebp, webpToMp4, webpToJpg } from '../lib/webp-anim.js';
 
-const BRAND = 'Provided by 𝐀𝐥-𝐉𝐢𝐧';
+const BRAND = 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮';
 const MAX_INPUT_BYTES = 25 * 1024 * 1024;       // stickers never need more (rule: stay far below 100 MB)
 const STATIC_LIMIT = 95 * 1024;                 // WhatsApp: static sticker ≤ 100 KB
 const ANIMATED_LIMIT = 480 * 1024;              // WhatsApp: animated sticker ≤ 500 KB

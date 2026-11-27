@@ -7,10 +7,10 @@ import { currentSession } from './core/context.js';
 
 const BASE = {
   owner: "",
-  codename: "𝐀𝐥-𝐉𝐢𝐧",
-  botName: "𝐀𝐥-𝐉𝐢𝐧",
+  codename: "𝓛𝓲𝓷 𝓨𝓾𝓮 𝓑𝓸𝓽",
+  botName: "𝓛𝓲𝓷 𝓨𝓾𝓮 𝓑𝓸𝓽",
   version: "2.3.0",
-  timezone: "Asia/Karachi",
+  timezone: "America/La_Paz",
   memoryTTL: 24 * 60 * 60 * 1000,
   vaultDir: "vault",
   vaultMaxMB: 200,

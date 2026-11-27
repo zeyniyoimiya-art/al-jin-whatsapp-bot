@@ -208,7 +208,7 @@ export async function ghostCommand(sock, chat, msg, args) {
     if (!a0) {
         return sendInteractive(sock, chat, {
             body: `👻 *ghost* — watcher status\n\n${statusBody()}`,
-            footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+            footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
             buttons: buttons(),
         }, { quoted: msg });
     }
@@ -225,14 +225,14 @@ export async function ghostCommand(sock, chat, msg, args) {
         if (s.on === targetState) {
             return sendInteractive(sock, chat, {
                 body: `ℹ️ Antidelete is already *${s.on ? 'ARMED (ON)' : 'DISARMED (OFF)'}*.\n\n${statusBody()}`,
-                footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+                footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
                 buttons: buttons(),
             }, { quoted: msg });
         }
         s.on = targetState; write(s);
         return sendInteractive(sock, chat, {
             body: `👻 Antidelete is now *${s.on ? 'ARMED (ON)' : 'DISARMED (OFF)'}*.\n\n${statusBody()}`,
-            footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+            footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
             buttons: buttons(),
         }, { quoted: msg });
     }
@@ -245,14 +245,14 @@ export async function ghostCommand(sock, chat, msg, args) {
         if (s.edit === targetState) {
             return sendInteractive(sock, chat, {
                 body: `ℹ️ Antiedit is already *${s.edit ? 'ARMED (ON)' : 'DISARMED (OFF)'}*.\n\n${statusBody()}`,
-                footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+                footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
                 buttons: buttons(),
             }, { quoted: msg });
         }
         s.edit = targetState; write(s);
         return sendInteractive(sock, chat, {
             body: `👻 Antiedit is now *${s.edit ? 'ARMED (ON)' : 'DISARMED (OFF)'}*.\n\n${statusBody()}`,
-            footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+            footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
             buttons: buttons(),
         }, { quoted: msg });
     }

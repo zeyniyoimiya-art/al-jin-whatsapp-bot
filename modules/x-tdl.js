@@ -180,7 +180,7 @@ export const tdl = safe('tdl', async (sock, chat, msg, args) => {
     if (sub === 'login') {
         const bin = await needTdl();
         const mode = (args[1] || 'qr').toLowerCase() === 'desktop' ? 'desktop' : 'qr';
-        await reply(sock, chat, msg, `🔐 Login started (${mode}). Look at the *terminal/console where Al-Jin runs* and follow it. This waits up to 5 minutes.`);
+        await reply(sock, chat, msg, `🔐 Login started (${mode}). Look at the *terminal/console where Lin Yue runs* and follow it. This waits up to 5 minutes.`);
         await runTdl(bin, ['login', '-T', mode], { timeoutMs: LOGIN_TIMEOUT, inherit: true });
         return reply(sock, chat, msg, '✅ Telegram login finished.');
     }

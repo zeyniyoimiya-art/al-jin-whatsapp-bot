@@ -22,7 +22,7 @@ function statusText() {
     `• \`${p}dlcap 1gb\` or \`${p}dlcap 800\` (MB)\n` +
     `• \`${p}dlcap reset\` (default ${DEFAULT_MAX_MB} MB)\n` +
     `• \`${p}dlcap quality 720\`\n\n` +
-    `_Highest possible: ${HARD_MAX_MB} MB (WhatsApp's own limit). Keep ~2× the size free on disk, and remember the upload runs at your internet's upload speed._\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`;
+    `_Highest possible: ${HARD_MAX_MB} MB (WhatsApp's own limit). Keep ~2× the size free on disk, and remember the upload runs at your internet's upload speed._\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`;
 }
 
 export async function dlcapCommand(sock, chat, msg, args) {

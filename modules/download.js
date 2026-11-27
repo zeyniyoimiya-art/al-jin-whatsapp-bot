@@ -223,12 +223,12 @@ async function deliverPostItems(sock, chat, msg, status, items) {
 
 async function finishPostDelivery(sock, chat, msg, status, r, extra = '') {
   if (r.failed.length === 0) {
-    await editStatus(sock, chat, status, `✅ *Download complete* (${r.sent}/${r.total} sent)${extra}\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`);
+    await editStatus(sock, chat, status, `✅ *Download complete* (${r.sent}/${r.total} sent)${extra}\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`);
     await reactMsg(sock, chat, msg.key, EMOJIS.SUCCESS);
     return;
   }
   const why = r.failed.slice(0, 5).map((f) => `• #${f.n}: ${f.reason}`).join('\n');
-  await editStatus(sock, chat, status, `⚠️ *Sent ${r.sent}/${r.total}*\n${why}\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`);
+  await editStatus(sock, chat, status, `⚠️ *Sent ${r.sent}/${r.total}*\n${why}\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`);
   await reactMsg(sock, chat, msg.key, EMOJIS.FAILED);
 }
 
@@ -252,9 +252,9 @@ export async function downloadPostMediaDirect(sock, chat, msg, url, asZip = fals
         document: Buffer.from(zip.bytes),
         fileName: zip.filename || 'post.zip',
         mimetype: zip.mime || 'application/zip',
-        caption: `📦 *Post Archive* (${result.items.length} items)\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+        caption: `📦 *Post Archive* (${result.items.length} items)\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
       }, { quoted: msg });
-      await editStatus(sock, chat, status, `✅ *ZIP complete*\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`);
+      await editStatus(sock, chat, status, `✅ *ZIP complete*\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`);
       await reactMsg(sock, chat, msg.key, EMOJIS.SUCCESS);
       return;
     }
@@ -316,7 +316,7 @@ async function downloadHlsMedia(sock, chat, msg, url, status) {
       ? { document: { url: hlsFile }, mimetype: 'video/mp4', fileName }
       : { video: { url: hlsFile }, mimetype: 'video/mp4', fileName }, { quoted: msg });
 
-    await editStatus(sock, chat, status, `✅ *Download complete*\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`);
+    await editStatus(sock, chat, status, `✅ *Download complete*\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`);
     await reactMsg(sock, chat, msg.key, EMOJIS.SUCCESS);
   } catch (e) {
     console.error('[hls download]', e.message);
@@ -473,7 +473,7 @@ async function downloadMedia(sock, chat, msg, query, audioOnly) {
       return;
     }
 
-    await editStatus(sock, chat, status, `✅ *Download complete*\n_${safeName}_\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`);
+    await editStatus(sock, chat, status, `✅ *Download complete*\n_${safeName}_\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`);
     await reactMsg(sock, chat, msg.key, EMOJIS.SUCCESS);
   } catch (e) {
     console.error('[download]', e.message);
@@ -501,7 +501,7 @@ export async function ytdlCommand(sock, chat, msg, args) {
     const p = getPrefix();
     return sendInteractive(sock, chat, {
       body: `⬇️ *Download Media Options*\n\nURL: _${query.slice(0, 70)}${query.length > 70 ? '…' : ''}_\n\nSelect your desired format:`,
-      footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+      footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
       buttons: [
         createQuickReply('🎬 Video (Best)', `${p}dl ${query} --direct`),
         createQuickReply('🎵 Audio MP3', `${p}mp3 ${query}`),

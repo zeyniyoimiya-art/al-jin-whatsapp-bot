@@ -24,7 +24,7 @@ const STICKER_ANIM_MAX = 480 * 1024;
 class UserError extends Error {}
 const need = (cond, msg) => { if (!cond) throw new UserError(msg); };
 
-function pushName(msg) { return String(msg.pushName || '').trim() || 'Al-Jin'; }
+function pushName(msg) { return String(msg.pushName || '').trim() || 'Lin Yue'; }
 
 /** Sends a WebP buffer as a sticker carrying pack/author metadata. */
 async function sendSticker(sock, chat, msg, webp, packName, author) {
@@ -63,10 +63,10 @@ function stickerSource(msg, kinds = ['image', 'video', 'sticker']) {
 // ── take ───────────────────────────────────────
 export const take = safe('take', async (sock, chat, msg, args) => {
     const m = findMedia(msg, ['sticker']);
-    if (!m) return reply(sock, chat, msg, `🏷️ Reply to a sticker:\n\`${P()}take Pack name | Author\`\n\`${P()}take\` — uses “Al-Jin” and your name`);
+    if (!m) return reply(sock, chat, msg, `🏷️ Reply to a sticker:\n\`${P()}take Pack name | Author\`\n\`${P()}take\` — uses “Lin Yue” and your name`);
     const raw = args.join(' ').trim();
     const [packRaw, ...authorParts] = raw ? raw.split('|') : [];
-    const pack = (packRaw || '').trim() || 'Al-Jin';
+    const pack = (packRaw || '').trim() || 'Lin Yue';
     const author = authorParts.join('|').trim() || pushName(msg);
     const buf = await mediaBuffer(m, 3 * 1024 * 1024);
     return sendSticker(sock, chat, msg, buf, pack, author);
@@ -81,7 +81,7 @@ export const stickercrop = safe('stickercrop', async (sock, chat, msg) => {
     await withTmp([m.kind === 'video' ? '.mp4' : m.kind === 'sticker' ? '.webp' : '.img', '.webp'], async (inp, out) => {
         fs.writeFileSync(inp, buf);
         await encodeSticker(inp, out, { animated, crop: true });
-        await sendSticker(sock, chat, msg, readOut(out), 'Al-Jin', pushName(msg));
+        await sendSticker(sock, chat, msg, readOut(out), 'Lin Yue', pushName(msg));
     });
 });
 
@@ -98,7 +98,7 @@ export const circle = safe('circle', async (sock, chat, msg) => {
             await ffmpeg(['-i', inp, '-vf', `${SQUARE_CROP},${mask}`, '-frames:v', '1', '-c:v', 'libwebp', '-quality', String(q), '-an', out], 60000);
             if (fs.statSync(out).size <= STICKER_STATIC_MAX) break;
         }
-        await sendSticker(sock, chat, msg, readOut(out), 'Al-Jin', pushName(msg));
+        await sendSticker(sock, chat, msg, readOut(out), 'Lin Yue', pushName(msg));
     });
 });
 
@@ -142,7 +142,7 @@ export const attp = safe('attp', async (sock, chat, msg, args) => {
         const step = 0.2;
         const draws = colors.map((c, i) => `drawtext=fontfile='${filterPath(font)}':textfile='${filterPath(txt)}':fontcolor=0x${c}:fontsize=${fontSize}:line_spacing=8:x=(w-text_w)/2:y=(h-text_h)/2:borderw=4:bordercolor=black@0.85:enable='between(t,${(i * step).toFixed(1)},${((i + 1) * step - 0.001).toFixed(3)})'`);
         await ffmpeg(['-f', 'lavfi', '-i', `color=c=black@0.0:s=512x512:r=10:d=${(colors.length * step).toFixed(1)},format=rgba`, '-vf', draws.join(','), '-c:v', 'libwebp', '-loop', '0', '-lossless', '0', '-quality', '55', '-an', out], 60000);
-        await sendSticker(sock, chat, msg, readOut(out), 'Al-Jin', pushName(msg));
+        await sendSticker(sock, chat, msg, readOut(out), 'Lin Yue', pushName(msg));
     });
 });
 

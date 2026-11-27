@@ -29,7 +29,7 @@ async function status() {
     `${i.limit ? `• Limit per send: *${f(i.limit)}*\n` : ''}${i.manual ? `• Allotted (manual): *${f(i.manual)}*\n` : ''}` +
     `• ➜ Room for one file now: *${f(i.room)}* (also capped by .dlcap = ${getMaxDownloadMB()} MB)\n` +
     `• RAM: ${f(os.freemem())} free of ${f(os.totalmem())}\n\n` +
-    `*Change*\n• \`${p}disk tmp auto|system|/folder\`\n• \`${p}disk reserve 100\`\n• \`${p}disk limit 3gb\`\n• \`${p}disk room 3gb\` (allot) · \`${p}disk room auto\`\n• \`${p}disk reset\`\n\n_A file needs about its own size free once (WhatsApp keeps one encrypted temp copy while uploading)._\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`;
+    `*Change*\n• \`${p}disk tmp auto|system|/folder\`\n• \`${p}disk reserve 100\`\n• \`${p}disk limit 3gb\`\n• \`${p}disk room 3gb\` (allot) · \`${p}disk room auto\`\n• \`${p}disk reset\`\n\n_A file needs about its own size free once (WhatsApp keeps one encrypted temp copy while uploading)._\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`;
 }
 
 export async function diskCommand(sock, chat, msg, args = []) {

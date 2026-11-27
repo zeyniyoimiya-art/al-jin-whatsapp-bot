@@ -122,7 +122,7 @@ export async function ocrCommand(sock, chat, msg, args) {
     for (const chunk of chunks) {
       await sendInteractive(sock, chat, {
         body: chunk,
-        footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧',
+        footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮',
         buttons: [createCtaCopy('📋 Copy Text', text)],
       }, { quoted: msg });
     }
@@ -166,7 +166,7 @@ export async function barcodeCommand(sock, chat, msg, args) {
 
     await sock.sendMessage(chat, {
       image: pngBuffer,
-      caption: `📊 *Barcode (${type.toUpperCase()})*\n\nText: \`${text}\`\n\nProvided by 𝐀𝐥-𝐉𝐢𝐧`,
+      caption: `📊 *Barcode (${type.toUpperCase()})*\n\nText: \`${text}\`\n\nProvided by 𝓛𝓲𝓷 𝓨𝓾𝓮`,
     }, { quoted: msg });
   } catch (e) {
     await sock.sendMessage(chat, { text: `⚠️ barcode failed: ${e.message}` }, { quoted: msg }).catch(() => {});

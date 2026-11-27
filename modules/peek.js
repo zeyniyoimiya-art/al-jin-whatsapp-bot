@@ -428,7 +428,7 @@ export async function peekCommand(sock, chat, msg, args) {
                 `auto-peek    · ${s.auto ? 'ON' : 'OFF'}\n` +
                 `quoted-watch · ${s.watchQuoted ? 'ON' : 'OFF'}\n` +
                 `destination  · ${s.dest}\n`,
-            footer: 'Provided by 𝐀𝐥-𝐉𝐢𝐧 · Select an option below',
+            footer: 'Provided by 𝓛𝓲𝓷 𝓨𝓾𝓮 · Select an option below',
             buttons: [
                 createQuickReply(s.auto ? 'Auto-Peek OFF' : 'Auto-Peek ON', `${p}peek auto ${s.auto ? 'off' : 'on'}`),
                 createQuickReply(s.watchQuoted ? 'Watch OFF' : 'Watch ON', `${p}peek watch ${s.watchQuoted ? 'off' : 'on'}`),
